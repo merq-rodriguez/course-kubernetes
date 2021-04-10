@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-cm
+  labels:
+    name: nginx-cm
+spec:
+  containers:
+  - name: nginx
+    image: nginx:latest
+    env:
+      - name: ENVIRONMENT_TEST_1
+        valueFrom: 
+          configMapKeyRef:
+            key: variable1
+            name: test-cm
+      - name:  ENVIRONMENT_TEST_2
+        valueFrom:
+          configMapKeyRef:
+            key: variable2
+            name: test-cm
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    ports:
+      - containerPort: 80
